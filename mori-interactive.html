@@ -518,6 +518,8 @@ function initialize(){try{const atlas=createAtlas(),geometry=buildScene(atlas.ti
  // Public diagnostics contain no personal data and make smoke testing possible.
  window.MORI={get state(){return{...state}},get camera(){return{theta:orbit.theta,phi:orbit.phi,scale:orbit.scale}},get geometry(){return{vertices:renderer.count,triangles:renderer.count/3}},get renderer(){return renderer.gl.getParameter(renderer.gl.VERSION)}};
 }catch(err){console.error('MORI initialization:',err);$('#loading').hidden=true;$('#error-message').textContent=err instanceof Error?err.message:String(err);$('#render-error').hidden=false;}}
+// The guestbook remains readable while new submissions are paused.
+actions.guestbook=()=>{openPanel(`<p class="panel-overline">GUESTBOOK · READ ONLY</p><h2 class="panel-title" id="panel-title">小屋留言。</h2><p class="panel-intro">留言功能暂时暂停，以下是之前留下的便笺。</p><div class="notes-area"><div class="notes-heading"><span>小屋留言 · ${notes.length}</span><button data-action="export-notes" ${notes.length?'':'disabled'}>导出备份 ↗</button></div><div id="notes-list"></div></div>`,'guestbook');renderNotes();loadNotes();};
 updateControls();setTimeout(initialize,60);
 })();
 </script>
